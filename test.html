@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste - Sistema de Manutenção</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+        .test-info {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .status {
+            font-size: 24px;
+            color: #8b5cf6;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Teste do Sistema de Manutenção</h1>
+    
+    <div class="test-info">
+        <h2>Status Atual:</h2>
+        <div id="status" class="status">Carregando...</div>
+        <p>Data atual: <span id="currentDate"></span></p>
+        <p>Data de inauguração: <span id="launchDate"></span></p>
+    </div>
+    
+    <div class="test-info">
+        <h2>Verificações:</h2>
+        <p>✅ HTML carregado</p>
+        <p id="jsStatus">⏳ JavaScript carregando...</p>
+        <p id="cssStatus">⏳ CSS carregando...</p>
+    </div>
+    
+    <div class="test-info">
+        <h2>Links:</h2>
+        <p><a href="index.html" style="color: #8b5cf6;">← Voltar para o site principal</a></p>
+    </div>
+
+    <script>
+        // Mostrar data atual
+        document.getElementById('currentDate').textContent = new Date().toLocaleString('pt-BR');
+        
+        // Configuração de manutenção
+        const MAINTENANCE_CONFIG = {
+            launchDate: new Date('2025-08-15T19:00:00-03:00')
+        };
+        
+        document.getElementById('launchDate').textContent = MAINTENANCE_CONFIG.launchDate.toLocaleString('pt-BR');
+        
+        // Verificar status
+        const now = new Date();
+        const timeUntilLaunch = MAINTENANCE_CONFIG.launchDate - now;
+        
+        if (timeUntilLaunch <= 0) {
+            document.getElementById('status').textContent = '✅ SITE LIBERADO';
+            document.getElementById('status').style.color = '#4CAF50';
+        } else {
+            document.getElementById('status').textContent = '🛠️ SITE EM MANUTENÇÃO';
+            document.getElementById('status').style.color = '#f59e0b';
+        }
+        
+        // Verificar se os arquivos estão carregando
+        setTimeout(() => {
+            const jsLoaded = typeof checkMaintenanceStatus === 'function';
+            const cssLoaded = document.querySelector('link[href="styles.css"]') !== null;
+            
+            document.getElementById('jsStatus').textContent = jsLoaded ? '✅ JavaScript carregado' : '❌ JavaScript não carregado';
+            document.getElementById('cssStatus').textContent = cssLoaded ? '✅ CSS carregado' : '❌ CSS não carregado';
+        }, 1000);
+    </script>
+</body>
+</html>

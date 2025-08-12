@@ -1,0 +1,38 @@
+services:
+  # Backend Service
+  - type: web
+    name: meu-backend
+    env: node
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 24h
+      - key: BCRYPT_ROUNDS
+        value: 12
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: 100
+      - key: LOG_LEVEL
+        value: info
+    healthCheckPath: /api/health
+    autoDeploy: true
+
+  # Frontend Service
+  - type: static
+    name: meu-frontend
+    buildCommand: cd frontend && npm install && npm run build
+    publishDir: frontend/build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://meu-backend.onrender.com
+      - key: REACT_APP_ENVIRONMENT
+        value: production
+    autoDeploy: true

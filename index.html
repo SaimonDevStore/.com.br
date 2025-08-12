@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAIMON DEV STORE - Soluções Digitais Inovadoras</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Página de Manutenção -->
+    <div id="maintenancePage" class="maintenance-page">
+        <div class="maintenance-container">
+            <div class="maintenance-content">
+                <div class="maintenance-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h1 class="maintenance-title">SITE EM MANUTENÇÃO</h1>
+                <p class="maintenance-subtitle">Abertura oficial em:</p>
+                
+                <div class="countdown-container">
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="days">00</div>
+                        <div class="countdown-label">Dias</div>
+                    </div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="hours">00</div>
+                        <div class="countdown-label">Horas</div>
+                    </div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="minutes">00</div>
+                        <div class="countdown-label">Minutos</div>
+                    </div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="seconds">00</div>
+                        <div class="countdown-label">Segundos</div>
+                    </div>
+                </div>
+                
+                <div class="maintenance-info">
+                    <p>Estamos preparando algo incrível para você!</p>
+                    <p>Em breve, nossa plataforma estará disponível com todas as funcionalidades.</p>
+                </div>
+                
+                <div class="admin-login-section">
+                    <p class="admin-text">Acesso Administrativo</p>
+                    <button class="admin-login-btn" onclick="showAdminLogin()">
+                        <i class="fas fa-user-shield"></i>
+                        Login Admin
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal de Login Admin -->
+        <div id="adminLoginModal" class="admin-modal">
+            <div class="admin-modal-content">
+                <span class="close-admin" onclick="closeAdminLogin()">&times;</span>
+                <div class="admin-form">
+                    <h3><i class="fas fa-user-shield"></i> Acesso Administrativo</h3>
+                    <form onsubmit="handleAdminLogin(event)">
+                        <input type="text" id="adminUsername" placeholder="Usuário Admin" required>
+                        <input type="password" id="adminPassword" placeholder="Senha" required>
+                        <button type="submit">Acessar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal do Site -->
+    <div id="mainContent" class="main-content" style="display: none;">
+        <!-- Cabeçalho Superior -->
+        <nav class="top-header">
+            <div class="container">
+                <div class="header-content">
+                    <!-- Logo -->
+                    <div class="logo">
+                        <h2>Saimon Dev Store</h2>
+                    </div>
+                    
+                    <!-- Menu de Navegação -->
+                    <div class="nav-menu">
+                        <a href="#about" onclick="scrollToSection('about')">Sobre Mim</a>
+                        <a href="#services" onclick="scrollToSection('services')">Serviços</a>
+                        <a href="#qualities" onclick="scrollToSection('qualities')">Qualidades</a>
+                        <a href="#game" onclick="scrollToSection('game')">Diversão</a>
+                    </div>
+                    
+                    <!-- Redes Sociais -->
+                    <div class="social-icons">
+                        <a href="https://discord.gg/WCzMTYncw4" target="_blank" class="social-icon">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <a href="https://www.instagram.com/saimondevstore/?igsh=MThkMXBzczIzd3B4Zw%3D%3D#" target="_blank" class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/5511999999999" target="_blank" class="social-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Sistema de Login -->
+                    <div class="auth-section">
+                        <div id="auth-buttons" class="auth-buttons">
+                            <button class="auth-btn login-btn" onclick="openAuthModal('login')">Login</button>
+                            <button class="auth-btn register-btn" onclick="openAuthModal('register')">Registrar</button>
+                        </div>
+                        <div id="user-info" class="user-info" style="display: none;">
+                            <span class="username"></span>
+                            <button class="logout-btn" onclick="logout()">Sair</button>
+                        </div>
+                        <div id="admin-info" class="admin-info" style="display: none;">
+                            <span class="admin-username"></span>
+                            <span class="admin-badge">ADMIN</span>
+                            <button class="admin-logout-btn" onclick="logoutAdmin()">Sair Admin</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Modal de Login/Registro -->
+        <div id="authModal" class="auth-modal">
+            <div class="auth-modal-content">
+                <span class="close-auth" onclick="closeAuthModal()">&times;</span>
+                <div id="authForm">
+                    <!-- Formulário será inserido via JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Cabeçalho -->
+        <header class="header">
+            <div class="container">
+                <h1 class="title">SAIMON DEV STORE</h1>
+                <p class="slogan">Transformando ideias em realidade digital</p>
+                <div class="header-buttons">
+                    <button class="btn btn-primary" onclick="scrollToSection('services')">Ver Serviços</button>
+                    <button class="btn btn-secondary" onclick="scrollToSection('contact')">Fale Conosco</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Seção Sobre Mim -->
+        <section id="about" class="about">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2>Sobre Mim</h2>
+                        <p>Sou Saimon, um desenvolvedor full-stack apaixonado por criar soluções digitais inovadoras. Com vasta experiência em desenvolvimento de bots, automações e sistemas web, ofereço serviços de alta qualidade para impulsionar seu projeto.</p>
+                        <p>Minha missão é transformar suas ideias em realidade digital, sempre priorizando a qualidade, segurança e performance em cada linha de código.</p>
+                    </div>
+                    <div class="stats-cards">
+                        <div class="stat-card">
+                            <div class="stat-number">+10</div>
+                            <div class="stat-label">Bots criados</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">+25</div>
+                            <div class="stat-label">Clientes satisfeitos</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">+1000</div>
+                            <div class="stat-label">Linhas de código</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="specialization-cards">
+                    <div class="spec-card">
+                        <div class="spec-icon">🌐</div>
+                        <h3>Frontend & Web</h3>
+                        <ul>
+                            <li>HTML</li>
+                            <li>CSS</li>
+                            <li>JavaScript</li>
+                            <li>e muito mais</li>
+                        </ul>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-icon">⚙️</div>
+                        <h3>Backend & Scripts</h3>
+                        <ul>
+                            <li>Python</li>
+                            <li>Node.js / Java</li>
+                            <li>Automação e Bots</li>
+                            <li>e muito mais</li>
+                        </ul>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-icon">🛠️</div>
+                        <h3>Ferramentas & Frameworks</h3>
+                        <ul>
+                            <li>React / Vue / Next.js</li>
+                            <li>Banco de dados e APIs</li>
+                            <li>Segurança e Performance</li>
+                            <li>e muito mais</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Serviços -->
+        <section id="services" class="services">
+            <div class="container">
+                <h2>Nossos Serviços</h2>
+                <div class="service-categories">
+                    <div class="category-card active" onclick="showCategory('bots')">
+                        <i class="fas fa-robot"></i>
+                        <h3>Bots</h3>
+                    </div>
+                    <div class="category-card" onclick="showCategory('portfolios')">
+                        <i class="fas fa-briefcase"></i>
+                        <h3>Portfólios</h3>
+                    </div>
+                    <div class="category-card" onclick="showCategory('minecraft')">
+                        <i class="fas fa-cube"></i>
+                        <h3>Scripts Minecraft</h3>
+                    </div>
+                    <div class="category-card" onclick="showCategory('discord')">
+                        <i class="fab fa-discord"></i>
+                        <h3>Servidores Discord</h3>
+                    </div>
+                    <div class="category-card" onclick="showCategory('sites')">
+                        <i class="fas fa-globe"></i>
+                        <h3>Sites</h3>
+                    </div>
+                    <div class="category-card" onclick="showCategory('optimizations')">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <h3>Otimizações</h3>
+                    </div>
+                </div>
+
+                <!-- Conteúdo dos Produtos - Agora embaixo das abas -->
+                <div id="productModal" class="modal">
+                    <div class="modal-content">
+                        <div id="modalContent"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Qualidades -->
+        <section id="qualities" class="qualities">
+            <div class="container">
+                <h2>Qualidades da Dev Store</h2>
+                <div class="qualities-grid">
+                    <div class="quality-card">
+                        <div class="quality-icon">✨</div>
+                        <h3>Originalidade</h3>
+                        <p>Código único e personalizado para cada projeto</p>
+                    </div>
+                    <div class="quality-card">
+                        <div class="quality-icon">🔒</div>
+                        <h3>Segurança</h3>
+                        <p>Proteção total e práticas de segurança avançadas</p>
+                    </div>
+                    <div class="quality-card">
+                        <div class="quality-icon">⚡</div>
+                        <h3>Performance</h3>
+                        <p>Otimização máxima para velocidade e eficiência</p>
+                    </div>
+                    <div class="quality-card">
+                        <div class="quality-icon">🎯</div>
+                        <h3>Facilidade de Uso</h3>
+                        <p>Interface intuitiva e documentação completa</p>
+                    </div>
+                    <div class="quality-card">
+                        <div class="quality-icon">🛠️</div>
+                        <h3>Suporte Técnico</h3>
+                        <p>Assistência especializada sempre que precisar</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Jogo Snake -->
+        <section id="game" class="game">
+            <div class="container">
+                <h2>Diversão</h2>
+                <div class="game-container">
+                    <div class="game-area">
+                        <canvas id="snakeCanvas" width="400" height="400"></canvas>
+                        <div class="game-controls">
+                            <p>Use as setas ou WASD para jogar</p>
+                            <button id="startGame" class="btn btn-primary">Iniciar Jogo</button>
+                            <button id="resetGame" class="btn btn-secondary">Reiniciar</button>
+                        </div>
+                    </div>
+                    <div class="game-sidebar">
+                        <div class="score-board">
+                            <h3>Pontuação</h3>
+                            <div id="currentScore">0</div>
+                        </div>
+                        <div class="leaderboard">
+                            <h3>Ranking</h3>
+                            <div id="leaderboardList">
+                                <!-- Ranking será preenchido via JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Contato -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>Entre em Contato</h2>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" placeholder="Seu nome" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="Seu email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="subject" placeholder="Assunto" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" placeholder="Sua mensagem" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Rodapé -->
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2025 SAIMON DEV STORE. Todos os direitos reservados.</p>
+                <p>Versão 1.0.0</p>
+            </div>
+        </footer>
+
+        <!-- Elemento Flutuante RELAXE -->
+        <div class="relax-button" onclick="openRelax()">
+            <i class="fas fa-music"></i>
+            <span>RELAXE</span>
+        </div>
+
+        <!-- Player RELAXE -->
+        <div id="relaxPlayer" class="relax-player">
+            <div class="relax-content">
+                <span class="close-relax" onclick="closeRelax()">&times;</span>
+                <h3>RELAXE</h3>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/7NOSDKb0HlU?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

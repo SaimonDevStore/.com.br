@@ -1,0 +1,11 @@
+services:
+  - type: static
+    name: meu-frontend
+    buildCommand: cd frontend && npm install && npm run build
+    publishDir: frontend/build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://meu-backend.onrender.com
+      - key: REACT_APP_ENVIRONMENT
+        value: production
+    autoDeploy: true
